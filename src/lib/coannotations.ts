@@ -1,4 +1,4 @@
-import { getFirestore, collection, doc, getDocs, setDoc, deleteDoc } from 'firebase/firestore';
+import { getFirestore, collection, doc, getDocs, getDoc, setDoc, deleteDoc } from 'firebase/firestore';
 import { Annotation } from './types';
 
 import { app } from '../app/firebaseConfig';
@@ -9,26 +9,24 @@ export async function createCollaboration(): Promise<string> {
     return collaborationRef.id;
 }
 
-export async function fetchAllUserAnnotations(collaborationId: string, paperId: string): Promise<Annotation[]> {
-  const usersCollectionRef = collection(db, 'collaboration', collaborationId, 'papers', paperId, 'users');
-  const userSnapshots = await getDocs(usersCollectionRef);
-  const fetchedAnnotations: Annotation[] = [];
-  
-  userSnapshots.forEach((doc) => {
-    const annotation = doc.data();
-    console.log('annotation:', annotation);
+async function fetchAllUserIds(): Promise<string[]> {
+  const users = collection(db, 'users');
+  const userSnapshots = await getDocs(users);
+  const userIds: string[] = [];
+  userSnapshots.forEach((userDoc) => {
+    userIds.push(userDoc.id);
   });
+  return userIds;
+}
+
+export async function fetchAllUserAnnotations(collaborationId: string, paperId: string): Promise<Annotation[]> {
+  const userIds = await fetchAllUserIds();
+  const fetchedAnnotations: Annotation[] = [];
 
   // Iterate through each user to get their annotations
-  for (const userDoc of userSnapshots.docs) {
-    const annotationsCollectionRef = collection(userDoc.ref, 'annotations'); // Correctly get annotations collection
-    const annotationsSnapshot = await getDocs(annotationsCollectionRef);
-    console.log('Fetched annotations:', annotationsSnapshot.docs);
-
-    annotationsSnapshot.forEach((doc) => {
-      const annotation = doc.data() as Annotation;
-      fetchedAnnotations.push({ ...annotation }); // Optionally include userId in each annotation
-    });
+  for (const userId of userIds) {
+    const annotations = await fetchUserAnnotations(collaborationId, userId, paperId);
+    fetchedAnnotations.push(...annotations);
   }
 
   console.log('Fetched annotations:', fetchedAnnotations);
@@ -36,7 +34,17 @@ export async function fetchAllUserAnnotations(collaborationId: string, paperId: 
   return fetchedAnnotations;
 }
 
-
+export async function fetchUserAnnotations(collaborationId: string, userId: string, paperId: string): Promise<Annotation[]> {
+  const annotationsCollectionRef = collection(db, 'collaboration', collaborationId, 'papers', paperId, 'users', userId, 'annotations');
+  const querySnapshot = await getDocs(annotationsCollectionRef);
+  console.log('querySnapshot: ', querySnapshot)
+  const annotations: Annotation[] = [];
+  querySnapshot.forEach((doc) => {
+    const annotation = doc.data() as Annotation;
+    annotations.push(annotation);
+  });
+  return annotations;
+}
 
 export async function addAnnotation(collaborationId: string, userId: string, paperId: string, annotation: Annotation): Promise<void> {
     const annotationDocRef = doc(db, 'collaboration', collaborationId, 'papers', paperId, 'users', userId, 'annotations', annotation.id);

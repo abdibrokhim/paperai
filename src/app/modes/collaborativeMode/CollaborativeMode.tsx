@@ -3,7 +3,7 @@ import CollaborativeViewSDKClient from '../../components/CollaborativeViewSDKCli
 import { UserInfo } from '../../../lib/types';
 
 import { Annotation } from '../../../lib/types';
-import { createCollaboration, fetchAllUserAnnotations, addAnnotation, updateAnnotation, deleteAnnotation } from '../../../lib/coannotations';
+import { createCollaboration, fetchAllUserAnnotations, fetchUserAnnotations, addAnnotation, updateAnnotation, deleteAnnotation } from '../../../lib/coannotations';
 
 interface CollaborativeModeProps {
   paperURL: string;
