@@ -37,6 +37,7 @@ export async function fetchAllUserAnnotations(collaborationId: string, paperId: 
 }
 
 
+
 export async function addAnnotation(collaborationId: string, userId: string, paperId: string, annotation: Annotation): Promise<void> {
     const annotationDocRef = doc(db, 'collaboration', collaborationId, 'papers', paperId, 'users', userId, 'annotations', annotation.id);
     await setDoc(annotationDocRef, annotation);
