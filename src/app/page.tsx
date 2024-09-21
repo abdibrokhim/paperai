@@ -237,7 +237,7 @@ export default function Home() {
       </div>
 
       {/* Mode selection buttons */}
-      <div className="flex flex-col gap-3 absolute top-[300px] left-[16px] bg-white p-1 shadow-md items-center">
+      <div className="flex flex-col gap-3 absolute top-[350px] left-[16px] bg-white p-1 shadow-md items-center">
         {/* Clear Mode */}
         <div className="relative flex items-center group">
           <button
@@ -246,7 +246,7 @@ export default function Home() {
           >
             <FontAwesomeIcon icon={faWandSparkles} />
           </button>
-          <span className="absolute w-[80px] text-xs left-full ml-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-md bg-[#747474] text-white px-2 py-1">
+          <span className="absolute w-[80px] text-xs left-full ml-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-md bg-[#747474] text-white px-2 py-1 before:content-[''] before:absolute before:right-full before:top-1/2 before:transform before:-translate-y-1/2 before:border-4 before:border-transparent before:border-r-[#747474]">
             Clear Mode
           </span>
         </div>
@@ -258,7 +258,7 @@ export default function Home() {
           >
             <FontAwesomeIcon icon={faLock} />
           </button>
-          <span className="absolute w-[90px] text-xs left-full ml-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-md bg-[#747474] text-white px-2 py-1">
+          <span className="absolute w-[90px] text-xs left-full ml-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-md bg-[#747474] text-white px-2 py-1 before:content-[''] before:absolute before:right-full before:top-1/2 before:transform before:-translate-y-1/2 before:border-4 before:border-transparent before:border-r-[#747474]">
             Private Mode
           </span>
         </div>
@@ -270,7 +270,7 @@ export default function Home() {
           >
             <FontAwesomeIcon icon={faUsers} />
           </button>
-          <span className="absolute w-[120px] text-xs left-full ml-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-md bg-[#747474] text-white px-2 py-1">
+          <span className="absolute w-[120px] text-xs left-full ml-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-md bg-[#747474] text-white px-2 py-1 before:content-[''] before:absolute before:right-full before:top-1/2 before:transform before:-translate-y-1/2 before:border-4 before:border-transparent before:border-r-[#747474]">
             Collaborative Mode
           </span>
         </div>
