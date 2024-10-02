@@ -25,7 +25,7 @@ class CollaborativeViewSDKClient {
         console.log('previewFile paperURL: ', this.paperURL);
         const config = {
             /* Pass your registered client id */
-            clientId: "8c0cd670273d451cbc9b351b11d22318",
+            clientId: clientId,
         };
         if (divId) { /* Optional only for Light Box embed mode */
             /* Pass the div id in which PDF should be rendered */
