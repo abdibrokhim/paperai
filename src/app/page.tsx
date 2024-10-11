@@ -16,8 +16,17 @@ import loader from './components/loader';
 import { addFile, getFileByPk } from '../lib/files';
 
 import { app } from './firebaseConfig';
-const db = getFirestore(app);
+import ElevenLabStream from './components/AudioStream';
+import AudioStream from './components/AudioStream';
 
+const db = getFirestore(app);
+const voiceId = "21m00Tcm4TlvDq8ikWAM";
+const text = "Hello, this is a sample text to stream as speech.";
+const apiKey = "your_api_key";
+const voiceSettings = {
+  stability: 0,
+  similarity_boost: 0,
+};
 export default function Home() {
   const [notification, setNotification] = useState<{
     message: string;
@@ -168,6 +177,7 @@ export default function Home() {
 
   return (
     <>
+       
       {/* Show notification */}
       {notification && (
         <Notification
@@ -217,6 +227,12 @@ export default function Home() {
             className="placeholder:text-[#747474] placeholder:text-sm text-sm w-[300px] px-2 py-1 text-[#747474] bg-white rounded border border-[#eaeaea] focus:outline-none focus:border-[#747474]"
           />
         </div>
+        <AudioStream
+       voiceId={voiceId}
+        
+       apiKey={apiKey}
+       voiceSettings={voiceSettings}
+      />
         {/* Submit button */}
         <div className="relative flex items-center group">
           <button
